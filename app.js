@@ -33,12 +33,44 @@ function clearPlayer(){$('driveFrame').src='about:blank';$('nowPlaying').textCon
 async function copyCurrentLink(){if(!currentRawLink){alert('No link loaded.');return;}try{await navigator.clipboard.writeText(currentRawLink);alert('Link copied.')}catch(e){prompt('Copy this link:',currentRawLink)}}
 function fitDesktopPlayer(){const scroller=$('playerScroller'),fixed=$('playerFixed');if(!scroller||!fixed)return;const available=Math.max(260,scroller.clientWidth);const scale=Math.min(1,available/1100);fixed.style.transform='scale('+scale+')';scroller.style.height=((619+44)*scale)+'px';}
 window.addEventListener('resize',fitDesktopPlayer);window.addEventListener('orientationchange',()=>setTimeout(fitDesktopPlayer,150));setTimeout(fitDesktopPlayer,0);
-function openAdmin(){showHome();$('home').classList.add('hidden');$('adminPanel').classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});if(!sb&&!initDb()){ $('adminStatus').textContent='Connect Supabase first: follow README.md and edit the two settings at the top of app.js. Demo mode is read-only.';return;}checkAdminSession();}
+function showLoginStatus(msg){
+  let status=$('adminLoginStatus');
+  if(!status){status=document.createElement('p');status.id='adminLoginStatus';status.setAttribute('role','status');status.style.cssText='margin:12px 0;padding:10px 12px;border-radius:8px;background:#17243a;color:#e8f0ff;overflow-wrap:anywhere';$('adminAuth').appendChild(status);}
+  status.textContent=msg;
+}
+function openAdmin(){showHome();$('home').classList.add('hidden');$('adminPanel').classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});if(!sb&&!initDb()){showLoginStatus('Supabase is not connected. Check the settings at the top of app.js.');return;}checkAdminSession().catch(e=>{console.error('Admin session check failed:',e);showLoginStatus('Could not check admin session: '+(e.message||String(e)));});}
 function closeAdmin(){ $('adminPanel').classList.add('hidden');$('home').classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'}); }
-async function adminLogin(){if(!sb&&!initDb())return;const {data,error}=await sb.auth.signInWithPassword({email:$('adminEmail').value.trim(),password:$('adminPassword').value});if(error){alert('Sign in failed: '+error.message);return;}await checkAdminSession();}
-async function adminLogout(){if(sb)await sb.auth.signOut();adminUser=null;$('adminWorkspace').classList.add('hidden');$('adminStatus').textContent='Signed out.';}
-async function checkAdminSession(){if(!sb)return;const {data:{user}}=await sb.auth.getUser();if(!user){$('adminWorkspace').classList.add('hidden');return;}const {data,error}=await sb.from('admin_users').select('user_id').eq('user_id',user.id).maybeSingle();if(error||!data){$('adminWorkspace').classList.add('hidden');$('adminStatus').textContent='This account is not an admin. Add its Auth user UUID to public.admin_users using the SQL steps in README.md.';return;}adminUser=user;$('adminWorkspace').classList.remove('hidden');$('adminStatus').textContent='Signed in as '+user.email;await loadAdminSeries();}
-function setStatus(msg){$('adminStatus').textContent=msg;}
+async function adminLogin(){
+  try{
+    if(!sb&&!initDb()){showLoginStatus('Supabase is not connected.');return;}
+    const email=$('adminEmail').value.trim();
+    const password=$('adminPassword').value;
+    if(!email||!password){showLoginStatus('Enter your Supabase admin email and password.');return;}
+    showLoginStatus('Signing in...');
+    const {data,error}=await sb.auth.signInWithPassword({email,password});
+    if(error){console.error('Supabase sign-in error:',error);showLoginStatus('Sign-in failed: '+error.message);return;}
+    if(!data||!data.user){showLoginStatus('Sign-in returned no user. Please try again.');return;}
+    showLoginStatus('Login successful. Checking admin permission...');
+    await checkAdminSession();
+  }catch(e){console.error('Admin login error:',e);showLoginStatus('Login error: '+(e.message||String(e)));}
+}
+async function adminLogout(){try{if(sb)await sb.auth.signOut();adminUser=null;$('adminWorkspace').classList.add('hidden');showLoginStatus('Signed out.');}catch(e){showLoginStatus('Sign-out error: '+(e.message||String(e)));}}
+async function checkAdminSession(){
+  if(!sb){showLoginStatus('Supabase is not connected.');return;}
+  const {data,error:userError}=await sb.auth.getUser();
+  if(userError)throw userError;
+  const user=data&&data.user;
+  if(!user){adminUser=null;$('adminWorkspace').classList.add('hidden');showLoginStatus('You are not signed in. Enter your email and password.');return;}
+  const {data:adminRow,error}=await sb.from('admin_users').select('user_id').eq('user_id',user.id).maybeSingle();
+  if(error){adminUser=null;$('adminWorkspace').classList.add('hidden');showLoginStatus('Signed in, but admin permission check failed: '+error.message);return;}
+  if(!adminRow){adminUser=null;$('adminWorkspace').classList.add('hidden');showLoginStatus('Login succeeded, but this account is not listed as an admin in public.admin_users.');return;}
+  adminUser=user;$('adminWorkspace').classList.remove('hidden');showLoginStatus('');$('adminStatus').textContent='Signed in as '+user.email;
+  try{await loadAdminSeries();}catch(e){console.error('Loading admin titles failed:',e);setStatus('Signed in, but loading titles failed: '+(e.message||String(e)));}
+}
+function setStatus(msg){
+  const el=$('adminStatus');if(el)el.textContent=msg;
+  if($('adminWorkspace').classList.contains('hidden'))showLoginStatus(msg);
+}
 async function uploadImage(file,prefix){if(!file)return null;if(!adminUser)throw new Error('Sign in as admin first.');const safe=file.name.replace(/[^a-zA-Z0-9._-]/g,'-');const path=`${adminUser.id}/${prefix}-${Date.now()}-${safe}`;const {error}=await sb.storage.from('media').upload(path,file,{upsert:false,contentType:file.type});if(error)throw error;const {data}=sb.storage.from('media').getPublicUrl(path);return data.publicUrl;}
 async function saveSeries(){try{if(!adminUser)return alert('Sign in first.');const title=$('fTitle').value.trim();if(!title)return alert('Title is required.');let poster=$('fPoster').value.trim();if($('fPosterFile').files[0])poster=await uploadImage($('fPosterFile').files[0],'poster');const record={title,japanese_name:$('fJapanese').value.trim(),kind:$('fKind').value,language:$('fLang').value,release_year:$('fYear').value?Number($('fYear').value):null,status:$('fStatus').value,genre:$('fGenre').value.trim(),studio:$('fStudio').value.trim(),rating:$('fRating').value.trim(),poster_url:poster||null,storyline:$('fStory').value.trim(),published:$('fPublished').value==='true',updated_at:new Date().toISOString()};let result;if($('editSeriesId').value)result=await sb.from('anime').update(record).eq('id',$('editSeriesId').value).select().single();else result=await sb.from('anime').insert(record).select().single();if(result.error)throw result.error;editingSeriesId=result.data.id;$('editSeriesId').value=result.data.id;$('seriesFormHeading').textContent='Edit Anime / Cartoon';setStatus('Title saved. Add seasons and episodes below.');await loadAdminSeries();await loadCatalog();if(!current||current.id!==result.data.id)current=result.data;openEpisodeEditor(result.data);}catch(e){alert('Save failed: '+e.message);}}
 function resetSeriesForm(){['editSeriesId','fTitle','fJapanese','fYear','fGenre','fStudio','fRating','fPoster','fStory'].forEach(id=>$(id).value='');$('fPosterFile').value='';$('fKind').value='Anime';$('fLang').value='Tamil Dubbed';$('fStatus').value='Ongoing';$('fPublished').value='true';$('seriesFormHeading').textContent='Add Anime / Cartoon';editingSeriesId=null;$('episodeEditor').classList.add('hidden');}

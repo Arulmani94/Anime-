@@ -1,6 +1,6 @@
 // TamilCartoons App — Supabase-backed frontend
 // Paste your Supabase Project URL and anon/public key below. Never put a service_role key here.
-const SUPABASE_URL = "https://ahdfgtsxaiptypqelfan.supabase.co/rest/v1/";
+const SUPABASE_URL = "https://ahdfgtsxaiptypqelfan.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_iUKUDd1dXWQiauBW0NuyiA_23jrzj9c";
 const dbReady = () => window.supabase && SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes("PASTE_") && !SUPABASE_ANON_KEY.includes("PASTE_");
 let sb = null, items = [], current = null, currentSeason = 1, currentEpisode = 1, currentFilter = "All", currentLetter = "All", currentEpisodes = [], currentSeriesSeasons = [], pendingEpisode = null, currentRawLink = "", adminUser = null, editingSeriesId = null, demoMode = false;

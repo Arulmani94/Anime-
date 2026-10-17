@@ -117,28 +117,29 @@ body.android-app .player-sticky-ad{display:none}body.android-app{padding-bottom:
     <h3 id="seriesFormHeading">Add Anime / Cartoon</h3>
     <input id="editSeriesId" type="hidden">
     <div class="admin-grid">
-      <label>Title *<input id="fTitle" placeholder="E.g. Shinchan Season 1"></label>
-      <label>Media Type<select id="fKind"><option>Series</option><option>Movie</option></select></label>
-      <label>Genre / Type<select id="fGenre"><option>Anime</option><option>Cartoon</option><option>Anime Movie</option><option>Cartoon Movie</option></select></label>
-      <label>Image URL<input id="fPoster" type="url" placeholder="Image link"></label>
-      <label style="grid-column:1/-1">Video Links (Google Drive or MEGA links separated by commas or line-by-line)<textarea id="fBulkLinks" placeholder="https://drive.google.com/file/d/.../view&#10;https://mega.nz/..." style="min-height:160px"></textarea></label>
-      <label>Video Format<select id="fVideoFormat"><option value="16:9">Widescreen (16:9)</option><option value="9:16">Portrait (9:16)</option><option value="4:3">Standard (4:3)</option></select></label>
+      <label>Title *<input id="fTitle" placeholder="Naruto Shippuden"></label>
+      <label>Japanese Name<input id="fJapanese" placeholder="Optional"></label>
+      <label>Type<select id="fKind"><option>Anime</option><option>Cartoon</option></select></label>
       <label>Language<select id="fLang"><option>Tamil Dubbed</option><option>Tamil</option><option>Multi Audio</option><option>English</option><option>Japanese</option></select></label>
       <label>Release Year<input id="fYear" type="number" placeholder="2026"></label>
       <label>Status<select id="fStatus"><option>Ongoing</option><option>Completed</option><option>Upcoming</option></select></label>
-      <label>Season Number<input id="fBulkSeason" type="number" min="1" value="1"></label>
+      <label>Genre<input id="fGenre" placeholder="Action, Adventure"></label>
+      <label>Studio<input id="fStudio" placeholder="Studio name"></label>
+      <label>Rating<input id="fRating" placeholder="8.5/10"></label>
+      <label>Poster Image URL<input id="fPoster" type="url" placeholder="https://... poster image URL"></label>
       <label>Featured / Published<select id="fPublished"><option value="true">Published</option><option value="false">Draft</option></select></label>
-      <label style="grid-column:1/-1">Anime Information<textarea id="fAnimeInfo" placeholder="Enter anime details..."></textarea></label>
+      <label style="grid-column:1/-1">Anime Information<textarea id="fAnimeInfo" placeholder="Studio, episodes, release details, etc."></textarea></label>
       <label style="grid-column:1/-1">Storyline<textarea id="fStory" placeholder="Write the storyline..."></textarea></label>
     </div>
-    <div class="admin-actions"><button onclick="saveSeries()">Publish</button><button class="secondary" onclick="resetSeriesForm()">Clear Form</button></div>
+    <div class="admin-actions"><button onclick="saveSeries()">Save Anime</button><button class="secondary" onclick="resetSeriesForm()">Clear Form</button></div>
     <div class="section-title"><h3>Saved Titles</h3><small>Tap Edit to manage seasons and episodes</small></div><div id="adminSeriesList" class="admin-list"></div>
     <div id="episodeEditor" class="episode-admin hidden"><h3>Season & Episode Manager</h3><p class="subtle" id="episodeEditorTitle"></p><input id="editEpisodeId" type="hidden"><div class="admin-grid">
       <label>Season Number *<input id="eSeason" type="number" min="1" value="1"></label><label>Episode Number *<input id="eNumber" type="number" min="1" value="1"></label>
       <label>Episode Title<input id="eTitle" placeholder="Episode title"></label><label>Google Drive Link *<input id="eDrive" placeholder="https://drive.google.com/file/d/.../view"></label>
       <label>Episode Thumbnail URL<input id="eThumb" type="url" placeholder="https://... thumbnail image URL"></label>
       <label>Episode Description<textarea id="eDesc" placeholder="Optional episode description"></textarea></label><label>Published<select id="ePublished"><option value="true">Yes</option><option value="false">No</option></select></label>
-    </div><div class="admin-actions"><button onclick="saveEpisode()">Save Episode</button><button class="secondary" onclick="resetEpisodeForm()">Clear Episode Form</button></div><div id="adminEpisodeList" class="episode-admin-list"></div></div>
+      <label style="grid-column:1/-1">Bulk Video Links<textarea id="bulkDriveLinks" rows="7" placeholder="Paste many Google Drive/Mega links here. One per line or comma-separated."></textarea></label>
+    </div><div class="admin-actions"><button onclick="saveEpisode()">Save Episode</button><button type="button" onclick="saveBulkEpisodes()">Save All Links as Episodes</button><button class="secondary" onclick="resetEpisodeForm()">Clear Episode Form</button></div><div id="adminEpisodeList" class="episode-admin-list"></div></div>
   </div>
 </section>
 </main>

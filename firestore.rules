@@ -1,0 +1,28 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isAdmin() {
+      return request.auth != null && request.auth.uid == 'XO7clbb4fsTxY0z4DZVrZuBnqFt1';
+    }
+
+    match /anime/{animeId} {
+      allow read: if isAdmin() || resource.data.published == true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    match /seasons/{seasonId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    match /episodes/{episodeId} {
+      allow read: if isAdmin() || resource.data.published == true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    // Deny access to all other collections by default.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

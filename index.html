@@ -40,23 +40,23 @@ body.android-app .player-sticky-ad{display:none}body.android-app{padding-bottom:
 .interstitial{position:fixed;inset:0;z-index:1000;background:rgba(3,6,13,.96);display:flex;align-items:center;justify-content:center;padding:20px}
 .interstitial-card{width:min(440px,100%);background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:25px;text-align:center;box-shadow:0 20px 70px #0009}
 .interstitial-card .ad-icon{font-size:32px}.interstitial-card h2{margin:8px 0}.interstitial-card p{color:var(--muted);font-size:13px}.interstitial-card button{min-width:150px}
-@media(max-width:600px){.player-sticky-ad{min-height:34px}body{padding-bottom:36px}}
+@media(max-width:600px){.player-scroller{top:145px}.player-sticky-ad{min-height:34px}body{padding-bottom:36px}}
 #details{background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:visible}
 .detail-head{display:flex;gap:20px;padding:20px;border-radius:18px 18px 0 0}.detail-poster{width:145px;max-width:35%;height:205px;object-fit:cover;border-radius:12px;border:1px solid var(--border)}.detail-copy h2{margin:3px 0 9px;font-size:clamp(21px,3vw,30px);line-height:1.2}.detail-copy p{color:#c0cbde;line-height:1.55;font-size:14px}.green{color:var(--green)}.red{color:var(--accent)}
 .player-area{padding:0 18px 20px}
 .player-scroller{width:100%;overflow:hidden;border-radius:12px;background:#000;position:sticky;top:76px;z-index:15;box-shadow:0 8px 28px #0008;contain:layout paint}
-.player-fixed{width:100%;max-width:100%;background:#000}
-.player-titlebar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 12px;background:#121a2b;width:100%;color:#e5edfc;font-size:13px;border-bottom:1px solid var(--border)}
-.drive-frame{display:block;width:100%;height:auto;aspect-ratio:16/9;min-height:0;border:0;background:#000}
+.player-fixed{width:1100px;max-width:none;background:#000;transform-origin:top left}
+.player-titlebar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 12px;background:#121a2b;width:1100px;color:#e5edfc;font-size:13px;border-bottom:1px solid var(--border)}
+.drive-frame{display:block;width:1100px;height:619px;border:0;background:#000}
 .player-note{font-size:12px;color:#9eabc4;margin:10px 0 14px;line-height:1.5}
 .link-form{display:grid;grid-template-columns:1fr auto;gap:8px;margin:12px 0}.link-form input{min-width:0;background:#0b1220;border:1px solid #34415b;border-radius:10px;padding:11px;color:#fff}
 .season-row{display:flex;gap:9px;overflow-x:auto;padding:4px 0 12px;scrollbar-width:thin}.season-btn{background:var(--surface2);border:1px solid #34415b;color:#dbe5fa;white-space:nowrap}.season-btn.active{background:var(--accent);border-color:var(--accent);color:#061321}
 .episode-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:12px}.episode{background:#eaf5ff;color:#102033;border-radius:10px;border:1px solid #b9dcf7;padding:0;text-align:left;overflow:hidden;cursor:pointer}.episode img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#c9d9e8}.episode .episode-copy{padding:10px}.episode strong{display:block;font-size:12px}.episode span{display:block;color:#36516c;font-size:10px;margin-top:5px}.episode.active{outline:2px solid var(--accent);background:#c9eaff}
 .player-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.secondary{background:var(--surface2);border:1px solid var(--border);color:#e8f0ff}.secondary:hover{background:#293954;color:#fff}.foot{color:#8290aa;text-align:center;font-size:12px;padding:25px 10px;border-top:1px solid var(--border);margin-top:25px}
 @media(max-width:900px){.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}}
-@media(max-width:600px){header{padding:10px;gap:10px}.logo{font-size:21px}.search{order:3;flex-basis:100%}.navlinks{order:4;gap:15px;overflow-x:auto;white-space:nowrap;padding-bottom:5px}.wrap{padding:12px}.hero{padding:23px 18px;min-height:220px;border-radius:18px;margin-bottom:20px}.hero h1{font-size:27px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.card-body{padding:10px}.card h3{font-size:13px}.detail-head{padding:13px;gap:12px}.detail-poster{width:100px;height:140px;max-width:34%}.detail-copy h2{font-size:19px}.detail-copy p{font-size:12px;margin:7px 0}.player-area{padding:0 9px 14px}.player-scroller{border-radius:9px}.episode-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.episode{padding:10px 8px}.section-title h2{font-size:17px}.ad{margin:18px 0}.az-row{margin-top:-4px}}
+@media(max-width:600px){header{padding:10px;gap:10px}.logo{font-size:21px}.search{order:3;flex-basis:100%}.navlinks{order:4;gap:15px;overflow-x:auto;white-space:nowrap;padding-bottom:5px}.wrap{padding:12px}.hero{padding:23px 18px;min-height:220px;border-radius:18px;margin-bottom:20px}.hero h1{font-size:27px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.card-body{padding:10px}.card h3{font-size:13px}.detail-head{padding:13px;gap:12px}.detail-poster{width:100px;height:140px;max-width:34%}.detail-copy h2{font-size:19px}.detail-copy p{font-size:12px;margin:7px 0}.player-area{padding:0 9px 14px}.player-scroller{top:94px;border-radius:9px}.episode-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.episode{padding:10px 8px}.section-title h2{font-size:17px}.ad{margin:18px 0}.az-row{margin-top:-4px}}
 
-.admin-shell{max-width:900px;margin:24px auto;background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:20px}.admin-shell h2,.admin-shell h3{margin-top:0}.admin-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.admin-grid label{display:block;font-size:12px;color:var(--muted);font-weight:800}.admin-grid input,.admin-grid textarea,.admin-grid select{width:100%;margin-top:5px;background:#0b1220;border:1px solid #34415b;border-radius:9px;padding:10px;color:#fff}.admin-grid textarea{min-height:85px;resize:vertical}.admin-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.admin-status{font-size:13px;color:var(--green);min-height:22px}.admin-list{display:grid;gap:8px;margin-top:12px}.admin-item{display:flex;align-items:center;gap:12px;padding:10px;background:var(--surface2);border:1px solid var(--border);border-radius:10px}.admin-item img{width:46px;height:60px;object-fit:cover;border-radius:5px}.admin-item .grow{flex:1}.episode-admin{border-top:1px solid var(--border);margin-top:20px;padding-top:18px}.bulk-episode-box{margin-top:18px;padding:14px;border:1px solid #365477;background:#101c2d;border-radius:12px}.bulk-episode-box h3{margin:0 0 8px}.bulk-label{display:block;font-size:12px;color:var(--muted);font-weight:800}.bulk-label textarea{display:block;width:100%;box-sizing:border-box;margin-top:6px;background:#0b1220;border:1px solid #34415b;border-radius:9px;padding:10px;color:#fff;min-height:150px;font:13px/1.5 monospace}.episode-admin-list{display:grid;gap:8px}.episode-admin-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:8px;background:var(--surface2);border-radius:8px}.danger{background:#9f3342;color:white}.subtle{font-size:12px;color:var(--muted);line-height:1.5}
+.admin-shell{max-width:900px;margin:24px auto;background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:20px}.admin-shell h2,.admin-shell h3{margin-top:0}.admin-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.admin-grid label{display:block;font-size:12px;color:var(--muted);font-weight:800}.admin-grid input,.admin-grid textarea,.admin-grid select{width:100%;margin-top:5px;background:#0b1220;border:1px solid #34415b;border-radius:9px;padding:10px;color:#fff}.admin-grid textarea{min-height:85px;resize:vertical}.admin-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.admin-status{font-size:13px;color:var(--green);min-height:22px}.admin-list{display:grid;gap:8px;margin-top:12px}.admin-item{display:flex;align-items:center;gap:12px;padding:10px;background:var(--surface2);border:1px solid var(--border);border-radius:10px}.admin-item img{width:46px;height:60px;object-fit:cover;border-radius:5px}.admin-item .grow{flex:1}.episode-admin{border-top:1px solid var(--border);margin-top:20px;padding-top:18px}.episode-admin-list{display:grid;gap:8px}.episode-admin-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:8px;background:var(--surface2);border-radius:8px}.danger{background:#9f3342;color:white}.subtle{font-size:12px;color:var(--muted);line-height:1.5}
 @media(max-width:600px){.admin-shell{padding:13px}.admin-grid{grid-template-columns:1fr}.episode-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}}
 </style>
 </head>
@@ -107,7 +107,7 @@ body.android-app .player-sticky-ad{display:none}body.android-app{padding-bottom:
 
 <section id="adminPanel" class="admin-shell hidden">
   <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap"><h2>Admin Panel</h2><button class="secondary" onclick="closeAdmin()">Close</button></div>
-  <p class="subtle">Sign in with the Firebase Authentication admin account. Anime records, seasons, and episode links are stored in Cloud Firestore. Poster and episode thumbnail fields use image URLs.</p>
+  <p class="subtle">Sign in with the admin email you registered in Supabase. Anime records and episode links are stored in the database. Poster and episode thumbnail uploads use the public <code>media</code> storage bucket.</p>
   <div id="adminAuth">
     <div class="admin-grid"><label>Email<input id="adminEmail" type="email" autocomplete="username" placeholder="admin@example.com"></label><label>Password<input id="adminPassword" type="password" autocomplete="current-password" placeholder="Password"></label></div>
     <div class="admin-actions"><button onclick="adminLogin()">Sign In</button><button class="secondary" onclick="adminLogout()">Sign Out</button></div>
@@ -117,37 +117,35 @@ body.android-app .player-sticky-ad{display:none}body.android-app{padding-bottom:
     <h3 id="seriesFormHeading">Add Anime / Cartoon</h3>
     <input id="editSeriesId" type="hidden">
     <div class="admin-grid">
-      <label>Title *<input id="fTitle" placeholder="Naruto Shippuden"></label>
-      <label>Type<select id="fKind"><option>Anime</option><option>Cartoon</option></select></label>
+      <label>Title *<input id="fTitle" placeholder="E.g. Shinchan Season 1"></label>
+      <label>Media Type<select id="fKind"><option>Series</option><option>Movie</option></select></label>
+      <label>Genre / Type<select id="fGenre"><option>Anime</option><option>Cartoon</option><option>Anime Movie</option><option>Cartoon Movie</option></select></label>
+      <label>Image URL<input id="fPoster" type="url" placeholder="Image link"></label>
+      <label style="grid-column:1/-1">Video Links (Google Drive or MEGA links separated by commas or line-by-line)<textarea id="fBulkLinks" placeholder="https://drive.google.com/file/d/.../view&#10;https://mega.nz/..." style="min-height:160px"></textarea></label>
+      <label>Video Format<select id="fVideoFormat"><option value="16:9">Widescreen (16:9)</option><option value="9:16">Portrait (9:16)</option><option value="4:3">Standard (4:3)</option></select></label>
       <label>Language<select id="fLang"><option>Tamil Dubbed</option><option>Tamil</option><option>Multi Audio</option><option>English</option><option>Japanese</option></select></label>
       <label>Release Year<input id="fYear" type="number" placeholder="2026"></label>
       <label>Status<select id="fStatus"><option>Ongoing</option><option>Completed</option><option>Upcoming</option></select></label>
-      <label>Genre<input id="fGenre" placeholder="Action, Adventure"></label>
-      <label>Poster Image URL<input id="fPoster" type="url" placeholder="https://... poster image URL"></label>
+      <label>Season Number<input id="fBulkSeason" type="number" min="1" value="1"></label>
       <label>Featured / Published<select id="fPublished"><option value="true">Published</option><option value="false">Draft</option></select></label>
+      <label style="grid-column:1/-1">Anime Information<textarea id="fAnimeInfo" placeholder="Enter anime details..."></textarea></label>
       <label style="grid-column:1/-1">Storyline<textarea id="fStory" placeholder="Write the storyline..."></textarea></label>
     </div>
-    <div class="admin-actions"><button onclick="saveSeries()">Save Anime</button><button class="secondary" onclick="resetSeriesForm()">Clear Form</button></div>
+    <div class="admin-actions"><button onclick="saveSeries()">Publish</button><button class="secondary" onclick="resetSeriesForm()">Clear Form</button></div>
     <div class="section-title"><h3>Saved Titles</h3><small>Tap Edit to manage seasons and episodes</small></div><div id="adminSeriesList" class="admin-list"></div>
     <div id="episodeEditor" class="episode-admin hidden"><h3>Season & Episode Manager</h3><p class="subtle" id="episodeEditorTitle"></p><input id="editEpisodeId" type="hidden"><div class="admin-grid">
       <label>Season Number *<input id="eSeason" type="number" min="1" value="1"></label><label>Episode Number *<input id="eNumber" type="number" min="1" value="1"></label>
-      <label>Episode Title<input id="eTitle" placeholder="Episode title"></label><label>Video Link (Google Drive / Mega) *<input id="eDrive" placeholder="Paste Google Drive or Mega link"></label>
+      <label>Episode Title<input id="eTitle" placeholder="Episode title"></label><label>Google Drive Link *<input id="eDrive" placeholder="https://drive.google.com/file/d/.../view"></label>
       <label>Episode Thumbnail URL<input id="eThumb" type="url" placeholder="https://... thumbnail image URL"></label>
       <label>Episode Description<textarea id="eDesc" placeholder="Optional episode description"></textarea></label><label>Published<select id="ePublished"><option value="true">Yes</option><option value="false">No</option></select></label>
-    </div><div class="admin-actions"><button onclick="saveEpisode()">Save Single Episode</button><button class="secondary" onclick="resetEpisodeForm()">Clear Episode Form</button></div>
-    <div class="bulk-episode-box"><h3>📚 Add Many Episodes at Once</h3><p class="subtle">Paste one Google Drive or Mega link per line. Episode numbers are generated automatically. Optional format: <b>Episode title | Video link</b></p><label class="bulk-label">Multiple Episode Links<textarea id="bulkEpisodeLinks" rows="8" placeholder="https://drive.google.com/file/d/FILE_ID_1/view
-Episode 2 | https://drive.google.com/file/d/FILE_ID_2/view
-https://drive.google.com/file/d/FILE_ID_3/view"></textarea></label><div class="admin-actions"><button onclick="saveBulkEpisodes()">Save All Episodes</button><button class="secondary" onclick="document.getElementById('bulkEpisodeLinks').value=''">Clear Links</button></div><p class="subtle">All episodes will use the Season Number above, starting at the Episode Number above. Each saved link becomes its own Episode button on the series page.</p></div>
-    <div id="adminEpisodeList" class="episode-admin-list"></div></div>
+    </div><div class="admin-actions"><button onclick="saveEpisode()">Save Episode</button><button class="secondary" onclick="resetEpisodeForm()">Clear Episode Form</button></div><div id="adminEpisodeList" class="episode-admin-list"></div></div>
   </div>
 </section>
 </main>
 <div class="player-sticky-ad">STICKY BOTTOM AD SPACE — DEMO PLACEHOLDER</div>
 <div id="interstitial" class="interstitial hidden" role="dialog" aria-modal="true" aria-label="Advertisement"><div class="interstitial-card"><div class="ad-icon">📢</div><div class="eyebrow">ADVERTISEMENT</div><h2>One moment before the next episode</h2><p>This is a demo ad screen. In the Android app, this transition can show an official Google AdMob interstitial. On the website, real full-screen ads must be provided by an eligible web ad product.</p><button onclick="continueAfterAd()">Continue to Episode</button></div></div>
-<div class="foot">TamilCartoons • Firebase-powered catalog • Ad areas are placeholders until an eligible ad provider is configured.</div>
+<div class="foot">TamilCartoons • Supabase-powered catalog • Ad areas are placeholders until an eligible ad provider is configured.</div>
 
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./app.js"></script>
 </body></html>
